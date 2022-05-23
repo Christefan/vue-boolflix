@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppHeader @searchClick="saveFilm($event)" />
-    <AppMain :filmSelect="films" />
+    <AppMain :filmSelect="filteredFilms" />
   </div>
 </template>
 
@@ -32,7 +32,17 @@ export default {
         console.log(this.films);
       });
   },
-  computed() {},
+  computed: {
+    filteredFilms() {
+      let filerFilms = [];
+      if (this.selectfilm != "") {
+        filerFilms = this.films.filter((item) => {
+          return item.title.toLowerCase().includes(this.selectfilm);
+        });
+      }
+      return filerFilms;
+    },
+  },
   methods: {
     saveFilm: function (searchFilm) {
       this.selectfilm = searchFilm.toLowerCase();
