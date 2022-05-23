@@ -5,7 +5,11 @@
         <h2>BOOTFLIX</h2>
       </div>
       <div>
-        <input type="text" placeholder="Scrivi" v-model="filmsSearch" />
+        <input
+          type="text"
+          placeholder="Query = La vita "
+          v-model="filmsSearch"
+        />
         <button @click="$emit('searchClick', filmsSearch)">Cerca</button>
       </div>
     </div>
