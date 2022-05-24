@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <AppHeader @searchClick="saveResearch($event)" />
-    <AppMain :filmSelect="filteredFilms" :seriesSelect="filteredSeries" />
+    <AppHeader @searchClick="search($event)" />
+    <AppMain :filmSelect="films" :seriesSelect="series" />
   </div>
 </template>
 
@@ -19,53 +19,35 @@ export default {
     return {
       films: [],
       series: [],
-      // arrFilm_Series: [],
-      searchAll: "",
+      api_key: "9c3cf0691abc4035223bf72d4f521110",
     };
   },
-  created() {
-    axios
-      .get(
-        "https://api.themoviedb.org/3/search/movie?api_key=9c3cf0691abc4035223bf72d4f521110&query=la vita"
-      )
-      .then((item) => {
-        console.log(item);
-        this.films = item.data.results;
-        console.log("Film = " + this.films);
-      });
-    axios
-      .get(
-        "https://api.themoviedb.org/3/search/tv?api_key=9c3cf0691abc4035223bf72d4f521110&query=la vita"
-      )
-      .then((item) => {
-        console.log(item);
-        this.series = item.data.results;
-        console.log("Serie tv = " + this.series);
-      });
-  },
-  computed: {
-    filteredFilms() {
-      let filerFilms = [];
-      if (this.searchAll != "") {
-        filerFilms = this.films.filter((item) => {
-          return item.title.toLowerCase().includes(this.searchAll);
-        });
-      }
-      return filerFilms;
-    },
-    filteredSeries() {
-      let filterSeries = [];
-      if (this.searchAll != "") {
-        filterSeries = this.series.filter((item) => {
-          return item.name.toLowerCase().includes(this.searchAll);
-        });
-      }
-      return filterSeries;
-    },
-  },
   methods: {
-    saveResearch: function (searchKey) {
-      this.searchAll = searchKey.toLowerCase();
+    search(searchKey) {
+      axios
+        .get("https://api.themoviedb.org/3/search/movie", {
+          params: {
+            api_key: this.api_key,
+            query: searchKey,
+          },
+        })
+        .then((item) => {
+          console.log(item);
+          this.films = item.data.results;
+          console.log("Film = " + this.films);
+        });
+      axios
+        .get("https://api.themoviedb.org/3/search/tv", {
+          params: {
+            api_key: this.api_key,
+            query: searchKey,
+          },
+        })
+        .then((item) => {
+          console.log(item);
+          this.series = item.data.results;
+          console.log("Serie tv = " + this.series);
+        });
     },
   },
 };
@@ -73,6 +55,7 @@ export default {
 
 <style lang="scss">
 @import "~bootstrap/scss/bootstrap.scss";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 * {
   margin: 0;
   padding: 0;
