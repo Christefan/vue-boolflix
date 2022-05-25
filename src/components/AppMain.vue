@@ -45,8 +45,7 @@ main {
 .container-film {
   padding: 1rem;
   margin: 0.1rem;
-  text-align: center;
-  height: 400px;
+  height: 530px;
   background-color: #2e3a46;
   color: white;
 }

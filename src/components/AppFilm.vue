@@ -1,21 +1,30 @@
 <template>
   <div class="container-film">
-    <img :src="`https://image.tmdb.org/t/p/w200/${film.backdrop_path}`" />
-    <h3>Titolo: {{ film.title }}</h3>
-    <h4>Titolo-originale: {{ film.original_title }}</h4>
-    <p>Lingua: {{ film.original_language }}</p>
-    <p>
-      voto:
-      <i
-        v-for="(item, index) in 5"
-        :key="index"
-        v-bind:class="
-          index < Math.ceil(film.vote_average / 2)
-            ? 'fas fa-star'
-            : 'far fa-star'
-        "
-      ></i>
-    </p>
+    <div class="Mokup">
+      <img :src="`https://www.themoviedb.org/t/p/w342${film.poster_path}`" />
+    </div>
+    <img
+      class="post"
+      :src="`https://www.themoviedb.org/t/p/w200${film.backdrop_path}`"
+    />
+    <div class="text">
+      <h3>Titolo: {{ film.title }}</h3>
+      <h4>Titolo-originale: {{ film.original_title }}</h4>
+      <p>Lingua: {{ film.original_language }}</p>
+      <p>
+        voto:
+        <i
+          v-for="(item, index) in 5"
+          :key="index"
+          v-bind:class="
+            index < Math.ceil(film.vote_average / 2)
+              ? 'fas fa-star'
+              : 'far fa-star'
+          "
+        ></i>
+      </p>
+      <p>overview: {{ film.overview }}</p>
+    </div>
   </div>
 </template>
 
@@ -30,25 +39,33 @@ export default {
   props: {
     film: Object,
   },
-  methods: {
-    votoStelle() {
-      //Controllo funzione
-      //Proviamo a inviare i valori tramite funzione
-      //P.s sono stato per 5 ore a capire come risolvere
-      // this.star = this.film.vote_average;
-      // console.log(this.star);
-      // return Math.round(this.star / 2);
-      // return this.star;
-      // let prova;
-      // for(i=0; i<5; i++){
-      //   if(i < Math.round(this.film.vote_average / 2)){
-      //     this.star=1;
-      //   }
-      //   this.star=0;
-      // }
-    },
-  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container-film {
+  position: relative;
+  .Mokup {
+    display: block;
+  }
+  img {
+    width: 100%;
+    height: 500px;
+  }
+  .post {
+    display: none;
+  }
+  .text {
+    display: none;
+    p {
+      font-size: 13px;
+    }
+  }
+  &:hover .text {
+    display: block;
+  }
+  &:hover .Mokup {
+    display: none;
+  }
+}
+</style>
