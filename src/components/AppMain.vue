@@ -1,20 +1,20 @@
 <template>
   <main>
     <div class="container py-4">
-      <h2>Film</h2>
+      <h2 v-if="filmSelect != ''">Film</h2>
       <div class="row row-cols-5">
-        <AppFilm
+        <AppFilmSeries
           v-for="(items, index) in filmSelect"
           :key="index"
-          :film="items"
+          :film_Series="items"
         />
       </div>
-      <h2>Serie</h2>
+      <h2 v-if="seriesSelect != ''">Serie</h2>
       <div class="row row-cols-5">
-        <AppSeries
+        <AppFilmSeries
           v-for="(items, index) in seriesSelect"
           :key="index"
-          :series="items"
+          :film_Series="items"
         />
       </div>
     </div>
@@ -22,13 +22,11 @@
 </template>
 
 <script>
-import AppFilm from "./AppFilm.vue";
-import AppSeries from "./AppSeries.vue";
+import AppFilmSeries from "./AppFilmSeries.vue";
 export default {
   name: "AppMain",
   components: {
-    AppFilm,
-    AppSeries,
+    AppFilmSeries,
   },
   props: {
     filmSelect: Array,

@@ -7,7 +7,7 @@
       <div>
         <input
           type="text"
-          placeholder="Query = La vita "
+          placeholder="Cerca Film o serie tv "
           v-model="filmsSearch"
         />
         <button @click="$emit('searchClick', filmsSearch)">Cerca</button>
